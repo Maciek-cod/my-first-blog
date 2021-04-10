@@ -112,8 +112,8 @@
           <div class="col-sm-12">
             <hr>
             <div class="row" id="lookup">
-              <h4>{{ the_question }}</h4>
-              <h3 class="text-primary">{{ the_country }}'s answer for  question number {{ the_question.id }} is: </h3>
+              <h4 class="text-center">{{ the_question }}</h4>
+              <h3 class="text-primary text-center">{{ the_country }}'s answer for  question number {{ the_question.id }} is: </h3>
               {% for answer in answer %}
               <div class="col-sm-2 col-sm-offset-1">
                 <h4>Defenetely True:<br><br><b class="text-primary">{{ answer.defenetely_true }}</b></h4>

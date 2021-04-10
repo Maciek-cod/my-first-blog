@@ -1,0 +1,174 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <title>Globalism 2020</title>
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'home' %}">Globalism 2020</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <!-- <li class="active"><a href="{% url 'home' %}">Home</a></li> -->
+            <li class="dropdown"> 
+              <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <!-- <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li> -->
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li> -->
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <!-- <li><a href="../navbar-fixed-top/">Fixed top</a></li> -->
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div><!--/.container-fluid -->
+    </nav>
+
+    <div class="container bg-faded">
+      <h1 class="text-center text-primary">Globalism 2020 Guardian Conspiracy Theories</h1>
+      <hr>
+        {% block content %}
+        <div class="row">
+          <div class="col-sm-3">
+            <h4>ALL survey responses submitted by a country:</h4><br>
+            <ol>
+              {% for country in countries %}
+                <li><a href="{% url 'country' country.id %}">Country: {{ country.name }}</a></li>
+              {% endfor %}
+            </ol>
+          </div>
+
+          <div class="col-sm-9">
+            <h4>ALL countries responses of one question.</h4>
+            <ol><br>
+              {% for question in questions %}
+                <li><a href="{% url 'question' question.id %}">Question: {{ question.title }}</a></li>
+              {% endfor %}
+            </ol>
+            <!-- <form method="get" action="{% url 'home' %}" id="forma">
+              {% csrf_token %}
+              {{ form }}
+              <input type="submit" value="lookup">
+            </form> -->
+            <hr>
+            <h4>Choose your country and the question you are interested in to see the statement.</h4>
+            <br>
+
+            <form method="post" action="{% url 'home' %}#lookup" id="forma" class="col-sm-12 col-lg-7">
+              {% csrf_token %}
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                <label for="cname">Country:</label><br>
+                  <select class="custom-select my-1 mr-sm-2" id="cname" name="country" form="forma">
+                    {% for country in countries %}
+                      <option value="{{ country.pk }}">{{ country.name }}</option>
+                    {% endfor %}
+                  </select><br><br>
+                </div>
+
+                <div class="form-group col-md-3">
+                <label for="qname">Question:</label><br>
+                  <select class="custom-select my-1 mr-sm-2" id="qname" name="question" form="forma">
+                    {% for question in questions %}
+                      <option value="{{ question.pk }}">Number: {{ question.pk }}</option>
+                    {% endfor %}
+                  </select><br><br>
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label for="uname">Flow:</label><br>
+                    <select class="custom-select my-1 mr-sm-2" id="uname" name="upordown" form="forma">
+                        <option value="-">Descending</option>
+                        <option value="">Ascendingly</option>
+                    </select><br><br>
+                  </div>
+
+                <div class="form-group col-md-3">
+                  <br><input type="submit" value="Lookup" class="btn btn-primary">
+                </div>  
+              </div>
+            </form>
+          </div>
+          {% if the_country and answer and the_question %}
+          <div class="col-sm-12">
+            <hr>
+            <div class="row" id="lookup">
+              <h4>{{ the_question }}</h4>
+              <h3 class="text-primary">{{ the_country }}'s answer for  question number {{ the_question.id }} is: </h3>
+              {% for answer in answer %}
+              <div class="col-sm-2 col-sm-offset-1">
+                <h4>Defenetely True:<br><br><b class="text-primary">{{ answer.defenetely_true }}</b></h4>
+              </div>
+              <div class="col-sm-2">
+                <h4>Probably True:<br><br><b class="text-primary">{{ answer.probably_true }}</b></h4>
+              </div>
+              <div class="col-sm-2">
+                <h4>Probably False:<br><br><b class="text-primary">{{ answer.probably_false }}</b></h4>
+              </div>
+              <div class="col-sm-2">
+                <h4>Defenetely False:<br><br><b class="text-primary">{{ answer.defenetely_false }}</b></h4>
+              </div> 
+              <div class="col-sm-2">
+                <h4>Dont Know:<br><br><b class="text-primary">{{ answer.dont_know }}</b></h4>
+              </div> 
+            {% endfor %}
+            </div>
+            <hr>
+          </div>
+            <div class="row">
+              <div class="col-sm-2 col-sm-offset-1">
+                <h5>Defenetely True:</h5>
+                {% for answer in an_def_t %}
+                  {{ answer.country }}: <span class="text-primary">{{ answer.defenetely_true }}</span><br>
+                {% endfor %}
+              </div>
+              <div class="col-sm-2">
+                <h5>Probably True:</h5>
+                {% for answer in an_pro_t %}
+                  {{ answer.country }}: <span class="text-primary">{{ answer.probably_true }}</span><br>
+                {% endfor %}
+              </div>
+              <div class="col-sm-2">
+                <h5>Probably False:</h5>
+                {% for answer in an_pro_f %}
+                  {{ answer.country }}: <span class="text-primary text-uppercase">{{ answer.probably_false }}</span><br>
+                {% endfor %}
+              </div>
+              <div class="col-sm-2">
+                <h5>Def False:</h5>
+                {% for answer in an_def_f %}
+                  {{ answer.country }}: <span class="text-primary">{{ answer.defenetely_false }}</span><br>
+                {% endfor %}
+              </div>
+              <div class="col-sm-2">
+                <h5>Don't know:</h5>
+                {% for answer in an_do_kn %}
+                  {{ answer.country }}: <span class="text-primary">{{ answer.dont_know }}</span><br>
+                {% endfor %}<br><br>
+              </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endblock %}
+    </div>
+</body>
+</html>

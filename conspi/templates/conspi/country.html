@@ -1,0 +1,26 @@
+{% extends 'conspi/home.html' %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm-3">
+			<h1>{{country}}</h1><br>
+			<ol>
+				{% for country in countries %}
+				  <li><a href="{% url 'country' country.id %}">Country: {{ country.name }}</a></li>
+				{% endfor %}
+			</ol>
+		</div>
+		<div class="col-sm-9">
+		{% for answer in answers %}
+			
+				<a href="{% url 'question' answer.question.id %}"><h5 class="text-info">{{ answer.question }}</h5></a>
+				<li>True: {{ answer.defenetely_true }}</li>
+				<li>Probably True: {{ answer.probably_true }}</li>
+				<li>Probably False: {{ answer.probably_false }}</li>
+				<li>Defenetely False: {{ answer.defenetely_false }}</li>
+				<li>Dont Know: {{ answer.dont_know }}</li>
+			
+		{% endfor %}
+		</div>
+	</div>
+{% endblock %}

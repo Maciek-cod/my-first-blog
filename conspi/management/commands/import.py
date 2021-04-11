@@ -76,11 +76,11 @@ class Command(BaseCommand):
                         question =  Question.objects.get(pk=int(item[1])),
                         unweight_base = int(item[2]),
                         base = int(item[3]),
-                        defenetely_true = item[4],
-                        probably_true = item[5],
-                        probably_false = item[6],
-                        defenetely_false = item[7],
-                        dont_know = item[8])
+                        definitely_true = int(item[4]),
+                        probably_true = int(item[5]),
+                        probably_false = int(item[6]),
+                        definitely_false = int(item[7]),
+                        dont_know = int(item[8]))
                     w.save()
                 self.stdout.write(self.style.SUCCESS("Succesfully imported %s answers." % answers_counter))
             else:

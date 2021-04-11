@@ -5,20 +5,22 @@
 		<div class="col-sm-3">
 			<h1>{{country}}</h1><br>
 			<ol>
+				<h5>Choose country:</h5>
 				{% for country in countries %}
-				  <li><a href="{% url 'country' country.id %}">Country: {{ country.name }}</a></li>
+				  <li><a href="{% url 'country' country.id %}">{{ country.name }}</a></li>
 				{% endfor %}
 			</ol>
 		</div>
-		<div class="col-sm-9">
+		<div class="col-sm-9"><br><br><br>
+			<h4>GlobCOVID true or false QUESTIONS:</h4>
 		{% for answer in answers %}
 			
 				<a href="{% url 'question' answer.question.id %}"><h5 class="text-info">{{ answer.question }}</h5></a>
-				<li>True: {{ answer.defenetely_true }}</li>
-				<li>Probably True: {{ answer.probably_true }}</li>
-				<li>Probably False: {{ answer.probably_false }}</li>
-				<li>Defenetely False: {{ answer.defenetely_false }}</li>
-				<li>Dont Know: {{ answer.dont_know }}</li>
+				<li>Definitely True: {{ answer.definitely_true }} %</li>
+				<li>Probably True: {{ answer.probably_true }} %</li>
+				<li>Probably False: {{ answer.probably_false }} %</li>
+				<li>Definitely False: {{ answer.definitely_false }} %</li>
+				<li>Don't Know: {{ answer.dont_know }} %</li><br>
 			
 		{% endfor %}
 		</div>

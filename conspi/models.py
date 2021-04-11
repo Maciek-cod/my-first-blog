@@ -26,12 +26,12 @@ class Answer(models.Model):
 	country = models.ForeignKey(Country, on_delete=models.CASCADE)
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
 	unweight_base = models.CharField(max_length=50)
-	base = models.CharField(max_length=50)
-	defenetely_true = models.CharField(max_length=50)
-	probably_true = models.CharField(max_length=50)
-	probably_false = models.CharField(max_length=50) 
-	defenetely_false = models.CharField(max_length=50)
-	dont_know = models.CharField(max_length=50)
+	base = models.IntegerField()
+	definitely_true = models.IntegerField()
+	probably_true = models.IntegerField()
+	probably_false = models.IntegerField()
+	definitely_false = models.IntegerField()
+	dont_know = models.IntegerField()
 
 	def __str__(self):
 		return str(self.pk) + " " + str(self.country) + ": " + str(self.question) + " = " + str(self.probably_false)

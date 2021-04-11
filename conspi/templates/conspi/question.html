@@ -1,16 +1,17 @@
 {% extends 'conspi/home.html' %}
 
 {% block content %}
+	<br><h4>GlobCOVID true or false</h4>
 	<h3>{{ question }}</h3>
 
     {% for answer in answers %}
     	<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
 	    	<a href="{% url 'country' answer.country.id %}"><h5 class="text-info">{{ answer.country }}</h5></a>
-	    	<li>True: {{ answer.defenetely_true }}</li>
-	    	<li>Probably True: {{ answer.probably_true }}</li>
-	        <li>Probably False: {{ answer.probably_false }}</li>
-	        <li>Defenetely False: {{ answer.defenetely_false }}</li>
-	        <li>Dont Know: {{ answer.dont_know }}</li>
+	    	<li>Definitely True: {{ answer.definitely_true }} %</li>
+	    	<li>Probably True: {{ answer.probably_true }} %</li>
+	        <li>Probably False: {{ answer.probably_false }} %</li>
+	        <li>Definitely False: {{ answer.definitely_false }} %</li>
+	        <li>Don't Know: {{ answer.dont_know }} %</li><br>
 	    </div>
     {% endfor %}
 

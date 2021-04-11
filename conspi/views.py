@@ -23,10 +23,10 @@ def home(request):
 		the_country = Country.objects.get(pk=country_id)
 		the_question = Question.objects.get(pk=question_id)
 		answer = Answer.objects.filter(country=country_id, question=question_id)
-		an_def_t = Answer.objects.filter(question=question_id).order_by(upordown + 'defenetely_true')
+		an_def_t = Answer.objects.filter(question=question_id).order_by(upordown + 'definitely_true')
 		an_pro_t = Answer.objects.filter(question=question_id).order_by(upordown + 'probably_true')
 		an_pro_f = Answer.objects.filter(question=question_id).order_by(upordown + 'probably_false')
-		an_def_f = Answer.objects.filter(question=question_id).order_by(upordown + 'defenetely_false')
+		an_def_f = Answer.objects.filter(question=question_id).order_by(upordown + 'definitely_false')
 		an_do_kn = Answer.objects.filter(question=question_id).order_by(upordown + 'dont_know')
 		context = {
 			'countries':countries,

@@ -44,41 +44,90 @@
     </nav>
 
     <div class="container bg-faded">
-      <h1 class="text-center text-primary">Globalism 2020 Guardian Conspiracy Theories</h1>
-      <hr>
-        {% block content %}
+      <div class="text-center">
+        <h1 class="text-primary">Globalism 2020 Guardian Conspiracy Theories Survey</h1>
+        <h3>YouGov Cambridge</h3>
+        <h4>Fieldwork Dates: 30th July - 24th August 2020</h4>
+      </div>
+      {% block content %}
+      {% if the_country and answer and the_question %}
+      <div class="col-sm-12">
+        <hr>
+        <div class="row">
+          <h4 class="text-center">{{ the_question }}</h4>
+          <h3 class="text-primary text-center">{{ the_country }}'s answer for  question number {{ the_question.id }} is: </h3>
+          {% for answer in answer %}
+          <div class="col-sm-2 col-sm-offset-1">
+            <h4>Definitely True:<br><br><b class="text-primary">{{ answer.definitely_true }} %</b></h4>
+          </div>
+          <div class="col-sm-2">
+            <h4>Probably True:<br><br><b class="text-primary">{{ answer.probably_true }} %</b></h4>
+          </div>
+          <div class="col-sm-2">
+            <h4>Probably False:<br><br><b class="text-primary">{{ answer.probably_false }} %</b></h4>
+          </div>
+          <div class="col-sm-2">
+            <h4>Definitely False:<br><br><b class="text-primary">{{ answer.definitely_false }} %</b></h4>
+          </div> 
+          <div class="col-sm-2">
+            <h4>Don't Know:<br><br><b class="text-primary">{{ answer.dont_know }} %</b></h4>
+          </div> 
+          {% endfor %}
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-sm-2 col-sm-offset-1">
+            <h5>Definitely True:</h5>
+            {% for answer in an_def_t %}
+              {{ answer.country }}: <span class="text-primary">{{ answer.definitely_true }} %</span><br>
+            {% endfor %}
+          </div>
+          <div class="col-sm-2">
+            <h5>Probably True:</h5>
+            {% for answer in an_pro_t %}
+              {{ answer.country }}: <span class="text-primary">{{ answer.probably_true }} %</span><br>
+            {% endfor %}
+          </div>
+          <div class="col-sm-2">
+            <h5>Probably False:</h5>
+            {% for answer in an_pro_f %}
+              {{ answer.country }}: <span class="text-primary text-uppercase">{{ answer.probably_false }} %</span><br>
+            {% endfor %}
+          </div>
+          <div class="col-sm-2">
+            <h5>Definitely False:</h5>
+            {% for answer in an_def_f %}
+              {{ answer.country }}: <span class="text-primary">{{ answer.definitely_false }} %</span><br>
+            {% endfor %}
+          </div>
+          <div class="col-sm-2">
+            <h5>Don't know:</h5>
+            {% for answer in an_do_kn %}
+              {{ answer.country }}: <span class="text-primary">{{ answer.dont_know }} %</span><br>
+            {% endfor %}<br><br>
+          </div>
+        </div>
+        <hr>
+        </div>
+        {% endif %}
         <div class="row">
           <div class="col-sm-3">
             <h4>ALL survey responses submitted by a country:</h4><br>
             <ol>
               {% for country in countries %}
-                <li><a href="{% url 'country' country.id %}">Country: {{ country.name }}</a></li>
+                <li><a href="{% url 'country' country.id %}">{{ country.name }}</a></li>
               {% endfor %}
             </ol>
-          </div>
-
-          <div class="col-sm-9">
-            <h4>ALL countries responses of one question.</h4>
-            <ol><br>
-              {% for question in questions %}
-                <li><a href="{% url 'question' question.id %}">Question: {{ question.title }}</a></li>
-              {% endfor %}
-            </ol>
-            <!-- <form method="get" action="{% url 'home' %}" id="forma">
-              {% csrf_token %}
-              {{ form }}
-              <input type="submit" value="lookup">
-            </form> -->
-            <hr>
-            <h4>Choose your country and the question you are interested in to see the statement.</h4>
             <br>
-
-            <form method="post" action="{% url 'home' %}#lookup" id="forma" class="col-sm-12 col-lg-7">
+          </div>
+          <div class="col-sm-9"><br>
+            <h3>Choose a country and the question to see the statement:</h3><br>
+            <form method="post" action="{% url 'home' %}" id="forma" class="col-sm-12 col-lg-8 col-lg-offset-1">
               {% csrf_token %}
               <div class="form-row">
                 <div class="form-group col-md-3">
                 <label for="cname">Country:</label><br>
-                  <select class="custom-select my-1 mr-sm-2" id="cname" name="country" form="forma">
+                  <select class="custom-select my-1 mr-sm-2 btn-primary" id="cname" name="country" form="forma">
                     {% for country in countries %}
                       <option value="{{ country.pk }}">{{ country.name }}</option>
                     {% endfor %}
@@ -87,87 +136,37 @@
 
                 <div class="form-group col-md-3">
                 <label for="qname">Question:</label><br>
-                  <select class="custom-select my-1 mr-sm-2" id="qname" name="question" form="forma">
+                  <select class="custom-select my-1 mr-sm-2 btn-primary" id="qname" name="question" form="forma">
                     {% for question in questions %}
-                      <option value="{{ question.pk }}">Number: {{ question.pk }}</option>
+                      <option value="{{ question.pk }}">Number {{ question.pk }}</option>
                     {% endfor %}
                   </select><br><br>
                 </div>
 
                 <div class="form-group col-md-3">
                   <label for="uname">Flow:</label><br>
-                    <select class="custom-select my-1 mr-sm-2" id="uname" name="upordown" form="forma">
-                        <option value="-">Descending</option>
+                    <select class="custom-select my-1 mr-sm-2 btn-primary" id="uname" name="upordown" form="forma">
+                        <option value="-">Descendingly</option>
                         <option value="">Ascendingly</option>
                     </select><br><br>
                   </div>
 
                 <div class="form-group col-md-3">
-                  <br><input type="submit" value="Lookup" class="btn btn-primary">
+                  <br><input type="submit" value="Look up" class="btn btn-primary">
                 </div>  
               </div>
             </form>
-          </div>
-          {% if the_country and answer and the_question %}
-          <div class="col-sm-12">
-            <hr>
-            <div class="row" id="lookup">
-              <h4 class="text-center">{{ the_question }}</h4>
-              <h3 class="text-primary text-center">{{ the_country }}'s answer for  question number {{ the_question.id }} is: </h3>
-              {% for answer in answer %}
-              <div class="col-sm-2 col-sm-offset-1">
-                <h4>Defenetely True:<br><br><b class="text-primary">{{ answer.defenetely_true }}</b></h4>
-              </div>
-              <div class="col-sm-2">
-                <h4>Probably True:<br><br><b class="text-primary">{{ answer.probably_true }}</b></h4>
-              </div>
-              <div class="col-sm-2">
-                <h4>Probably False:<br><br><b class="text-primary">{{ answer.probably_false }}</b></h4>
-              </div>
-              <div class="col-sm-2">
-                <h4>Defenetely False:<br><br><b class="text-primary">{{ answer.defenetely_false }}</b></h4>
-              </div> 
-              <div class="col-sm-2">
-                <h4>Dont Know:<br><br><b class="text-primary">{{ answer.dont_know }}</b></h4>
-              </div> 
-            {% endfor %}
+            <div class="col-lg-12">
+              <ol>
+                <h4>GlobCOVID true or false QUESTIONS:</h4><br>
+                <h5>Click to see responses of ALL countries on one question:</h5>
+                {% for question in questions %}
+                  <li><a href="{% url 'question' question.id %}">{{ question.title }}</a></li>
+                {% endfor %}
+              </ol>
             </div>
-            <hr>
           </div>
-            <div class="row">
-              <div class="col-sm-2 col-sm-offset-1">
-                <h5>Defenetely True:</h5>
-                {% for answer in an_def_t %}
-                  {{ answer.country }}: <span class="text-primary">{{ answer.defenetely_true }}</span><br>
-                {% endfor %}
-              </div>
-              <div class="col-sm-2">
-                <h5>Probably True:</h5>
-                {% for answer in an_pro_t %}
-                  {{ answer.country }}: <span class="text-primary">{{ answer.probably_true }}</span><br>
-                {% endfor %}
-              </div>
-              <div class="col-sm-2">
-                <h5>Probably False:</h5>
-                {% for answer in an_pro_f %}
-                  {{ answer.country }}: <span class="text-primary text-uppercase">{{ answer.probably_false }}</span><br>
-                {% endfor %}
-              </div>
-              <div class="col-sm-2">
-                <h5>Def False:</h5>
-                {% for answer in an_def_f %}
-                  {{ answer.country }}: <span class="text-primary">{{ answer.defenetely_false }}</span><br>
-                {% endfor %}
-              </div>
-              <div class="col-sm-2">
-                <h5>Don't know:</h5>
-                {% for answer in an_do_kn %}
-                  {{ answer.country }}: <span class="text-primary">{{ answer.dont_know }}</span><br>
-                {% endfor %}<br><br>
-              </div>
-            </div>
         </div>
-        {% endif %}
         {% endblock %}
     </div>
 </body>

@@ -15,7 +15,7 @@
 			<h4>GlobCOVID true or false QUESTIONS:</h4>
 		{% for answer in answers %}
 			
-				<a href="{% url 'question' answer.question.id %}"><h5 class="text-info">{{ answer.question }}</h5></a>
+				<a href="{% url 'question' answer.question.id %}"><h5 class="text-info">{{ answer.question }}: {{ answer.question.title }}</h5></a>
 				<li>Definitely True: {{ answer.definitely_true }} %</li>
 				<li>Probably True: {{ answer.probably_true }} %</li>
 				<li>Probably False: {{ answer.probably_false }} %</li>

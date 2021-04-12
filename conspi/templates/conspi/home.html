@@ -20,24 +20,14 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <!-- <li class="active"><a href="{% url 'home' %}">Home</a></li> -->
             <li class="dropdown"> 
-              <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
               <ul class="dropdown-menu">
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <!-- <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li role="separator" class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li> -->
               </ul>
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <!-- <li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li> -->
             <li><a href="{% url 'home' %}">Home</a></li>
-            <!-- <li><a href="../navbar-fixed-top/">Fixed top</a></li> -->
           </ul>
         </div><!--/.nav-collapse -->
       </div><!--/.container-fluid -->
@@ -54,8 +44,9 @@
       <div class="col-sm-12">
         <hr>
         <div class="row">
-          <h4 class="text-center">{{ the_question }}</h4>
-          <h3 class="text-primary text-center">{{ the_country }}'s answer for  question number {{ the_question.id }} is: </h3>
+          <h4 class="text-center"><span class="text-primary">Question {{ the_question }}:</span> {{ the_question.title }}</h4>
+          <hr>
+          <h3 class="text-primary col-lg-1 text-right">{{ the_country }} </h3>
           {% for answer in answer %}
           <div class="col-sm-2 col-sm-offset-1">
             <h4>Definitely True:<br><br><b class="text-primary">{{ answer.definitely_true }} %</b></h4>
@@ -121,42 +112,17 @@
             <br>
           </div>
           <div class="col-sm-9"><br>
-            <h3>Choose a country and the question to see the statement:</h3><br>
-            <form method="post" action="{% url 'home' %}" id="forma" class="col-sm-12 col-lg-8 col-lg-offset-1">
+            <h3 class="text-primary">Choose a country and the question to see the statement:</h3><br>
+
+            <form method="post" action="{% url 'home' %}" id="forma" class="col-sm-12 col-lg-11 col-lg-offset-1">
               {% csrf_token %}
-              <div class="form-row">
-                <div class="form-group col-md-3">
-                <label for="cname">Country:</label><br>
-                  <select class="btn-primary" id="cname" name="country" form="forma">
-                    {% for country in countries %}
-                      <option value="{{ country.pk }}">{{ country.name }}</option>
-                    {% endfor %}
-                  </select><br><br>
-                </div>
-
-                <div class="form-group col-md-3">
-                <label for="qname">Question:</label><br>
-                  <select class="btn-primary" id="qname" name="question" form="forma">
-                    {% for question in questions %}
-                      <option value="{{ question.pk }}">Number {{ question.pk }}</option>
-                    {% endfor %}
-                  </select><br><br>
-                </div>
-
-                <div class="form-group col-md-3">
-                  <label for="uname">Flow:</label><br>
-                    <select class="btn-primary" id="uname" name="upordown" form="forma">
-                        <option value="-">Descendingly</option>
-                        <option value="">Ascendingly</option>
-                    </select><br><br>
-                  </div>
-
-                <div class="form-group col-md-3">
-                  <br><input type="submit" value="Look up" class="btn btn-primary">
-                </div>  
-              </div>
+              <dt>Country: {{ form.country }}
+              Question: {{ form.question }}
+              Direction: {{ form.flow }}
+              <input type="submit" value="Look up" class="btn-primary"></dt>
             </form>
-            <div class="col-lg-12">
+
+            <div class="col-lg-12"><br><br>
               <ol>
                 <h4>GlobCOVID true or false QUESTIONS:</h4><br>
                 <h5>Click to see responses of ALL countries on one question:</h5>
@@ -164,6 +130,7 @@
                   <li><a href="{% url 'question' question.id %}">{{ question.title }}</a></li>
                 {% endfor %}
               </ol>
+              <br><br>
             </div>
           </div>
         </div>

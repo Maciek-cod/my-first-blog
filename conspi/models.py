@@ -13,10 +13,10 @@ class Country(models.Model):
 		verbose_name_plural = "Countries"
 
 class Question(models.Model):
-	title = models.TextField(max_length=200)
+	title = models.CharField(max_length=200)
 
 	def __str__(self):
-		return str(self.pk) +": "+ self.title
+		return str(self.pk)
 
 	class Meta:
 		verbose_name_plural = "Question"

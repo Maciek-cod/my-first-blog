@@ -3,8 +3,8 @@
 {% block content %}
 	<div class="row">
 		<div class="col-sm-3">
-			<h1>{{country}}</h1><br>
 			<ol>
+				<h1>{{country}}</h1><br>
 				<h5>Choose country:</h5>
 				{% for country in countries %}
 				  <li><a href="{% url 'country' country.id %}">{{ country.name }}</a></li>

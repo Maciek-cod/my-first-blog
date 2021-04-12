@@ -61,7 +61,17 @@ def country(request, country_id):
 def question(request, question_id):
 	answers = Answer.objects.filter(question=question_id)
 	question = get_object_or_404(Question, pk=question_id)
+
+	previous = question_id - 1
+	nextt = question_id + 1
+	if question_id == 9:
+		nextt = 1
+	if question_id == 1:
+		previous = 9
+	
 	context = {
+		'previous':previous,
+		'nextt':nextt,
 		'answers':answers,
 		'question':question,
 	}

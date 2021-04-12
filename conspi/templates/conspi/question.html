@@ -1,10 +1,12 @@
 {% extends 'conspi/home.html' %}
 
 {% block content %}
-	<br><h4>GlobCOVID true or false</h4>
+	<br>
+	<a href="{% url 'question' previous %}" class="previous col-lg-2 text-center btn-primary"><h5>&laquo; Previous question</h5></a>
+	<a href="{% url 'question' nextt %}" class="next col-lg-2 col-lg-offset-8 text-center btn-primary"><h5>Next question &raquo;</h5></a>
+	<br><br><br><h4>GlobCOVID true or false</h4>
 	<h3>{{ question }}</h3>
-
-    {% for answer in answers %}
+	{% for answer in answers %}
     	<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
 	    	<a href="{% url 'country' answer.country.id %}"><h5 class="text-info">{{ answer.country }}</h5></a>
 	    	<li>Definitely True: {{ answer.definitely_true }} %</li>

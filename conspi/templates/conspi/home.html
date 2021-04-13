@@ -95,8 +95,8 @@
             <h5>Definitely True:</h5>
             <div class="row">
             {% for answer in an_def_t %}
-            <span class="col-xs-7 text-left"> {{ answer.country }}: </span>
-            <span class="text-primary col-xs-3 col-xs-offset-1 text-right">{{ answer.definitely_true }}%</span><br>
+            <span class="col-xs-12 col-sm-7"> {{ answer.country }}: </span>
+            <span class="text-primary col-sm-5 text-right">{{ answer.definitely_true }}%</span><br>
             {% endfor %}
             </div>
           </div>
@@ -104,8 +104,8 @@
             <h5>Probably True:</h5>
             <div class="row">
             {% for answer in an_pro_t %}
-             <span class="col-xs-7 text-left"> {{ answer.country }}: </span>
-             <span class="text-primary col-xs-3 col-xs-offset-1 text-right">{{ answer.probably_true }}%</span>
+             <span class="col-xs-12 col-sm-7"> {{ answer.country }}: </span>
+             <span class="text-primary col-sm-5 text-right">{{ answer.probably_true }}%</span>
             {% endfor %}
             </div>
           </div>
@@ -113,8 +113,8 @@
             <h5>Probably False:</h5>
             <div class="row">
             {% for answer in an_pro_f %}
-            <span class="col-xs-7 text-left"> {{ answer.country }}: </span>
-            <span class="text-primary col-xs-3 col-xs-offset-1 text-right">{{ answer.probably_false }}%</span><br>
+            <span class="col-xs-12 col-sm-7"> {{ answer.country }}: </span>
+            <span class="text-primary col-sm-5 text-right">{{ answer.probably_false }}%</span><br>
             {% endfor %}
             </div>
           </div>
@@ -122,8 +122,8 @@
             <h5>Definitely False:</h5>
             <div class="row">
             {% for answer in an_def_f %}
-            <span class="col-xs-7 text-left"> {{ answer.country }}: </span>
-            <span class="text-primary col-xs-3 col-xs-offset-1 text-right">{{ answer.definitely_false }}%</span><br>
+            <span class="col-xs-12 col-sm-7"> {{ answer.country }}: </span>
+            <span class="text-primary col-sm-5 text-right">{{ answer.definitely_false }}%</span><br>
             {% endfor %}
             </div>
           </div>
@@ -131,8 +131,8 @@
             <h5>Don't know:</h5>
             <div class="row">
             {% for answer in an_do_kn %}
-            <span class="col-xs-7 text-left"> {{ answer.country }}: </span>
-            <span class="text-primary col-xs-3 col-xs-offset-1 text-right">{{ answer.dont_know }}%</span><br>
+            <span class="col-xs-12 col-sm-7"> {{ answer.country }}: </span>
+            <span class="text-primary col-sm-5 text-right">{{ answer.dont_know }}%</span><br>
             {% endfor %}
             </div>
           </div>

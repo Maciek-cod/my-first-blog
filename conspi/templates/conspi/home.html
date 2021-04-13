@@ -114,6 +114,7 @@
         </div>
         {% endif %}
         <div class="row">
+          <hr>
           <div class="col-xs-12 text-center"><br>
             <h3 class="text-primary">Choose a country and the question to see the statement:</h3><br>
 
@@ -123,28 +124,29 @@
               <p class="col-xs-4 col-md-2"><b>Question: </b>{{ form.question}}</p>
               <p class="col-xs-4 col-md-2"><b>Flow: </b>{{ form.flow}}</p>
               <br>
-              <input type="submit" value="Look up" class="btn-primary">
+              <br>
+              <div class="col-xs-12 text-center">
+                <input type="submit" value="Look up" class="btn-primary">
+              </div>
             </form><br><br>
             <hr>
           </div>
-          
-          <div>
-            <h4 class="col-xs-12">ALL survey responses submitted by a country:</h4><br>
-            <ol class="col-xs-2 col-xs-offset-1">
-              {% for country in countries %}
-                <li><a href="{% url 'country' country.id %}">{{ country.name }}</a></li>
-              {% endfor %}
-            </ol>
-            <br>
-          </div>
-            <ol class="col-xs-8 col-xs-offset-1">
-              <h4>GlobCOVID true or false QUESTIONS:</h4><br>
-              <h5>Click to see responses of ALL countries on one question:</h5>
-              {% for question in questions %}
-                <li><a href="{% url 'question' question.id %}">{{ question.title }}</a></li>
-              {% endfor %}
-            </ol>
-            <br><br>
+          <h4 class="col-xs-12">ALL survey responses submitted by a country:</h4><br>
+          <ol class="col-xs-2 col-xs-offset-1">
+            {% for country in countries %}
+              <li><a href="{% url 'country' country.id %}">{{ country.name }}</a></li>
+            {% endfor %}
+          </ol>
+          <br>
+      
+          <ol class="col-xs-8 col-xs-offset-1">
+            <h4>GlobCOVID true or false QUESTIONS:</h4><br>
+            <h5>Click to see responses of ALL countries on one question:</h5>
+            {% for question in questions %}
+              <li><a href="{% url 'question' question.id %}">{{ question.title }}</a></li>
+            {% endfor %}
+          </ol>
+          <br><br>
         </div>
         {% endblock %}
     </div>

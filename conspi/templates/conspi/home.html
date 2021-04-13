@@ -15,7 +15,12 @@
         min-height: 1px;
         padding-left: 15px;
         padding-right: 15px;
-      }    
+      }
+      @media only screen and (max-width: 600px) {
+      .font-sm h4{
+        font-size: 100%;
+      }
+}
     </style>
 <body>
     <nav class="navbar navbar-default">
@@ -60,19 +65,19 @@
           <h3 class="text-center text-primary col-xs-12">{{ the_country }} </h3>
 
           {% for answer in answer %}
-          <div class="col-costom">
+          <div class="col-costom font-sm">
             <h4>Definitely True:<br><br><b class="text-primary">{{ answer.definitely_true }} %</b></h4>
           </div>
-          <div class="col-costom">
+          <div class="col-costom font-sm">
             <h4>Probably True:<br><br><b class="text-primary">{{ answer.probably_true }} %</b></h4>
           </div>
-          <div class="col-costom">
+          <div class="col-costom font-sm">
             <h4>Probably False:<br><br><b class="text-primary">{{ answer.probably_false }} %</b></h4>
           </div>
-          <div class="col-costom">
+          <div class="col-costom font-sm">
             <h4>Definitely False:<br><br><b class="text-primary">{{ answer.definitely_false }} %</b></h4>
           </div> 
-          <div class="col-costom">
+          <div class="col-costom font-sm">
             <h4>Don't Know:<br><br><b class="text-primary">{{ answer.dont_know }} %</b></h4>
           </div> 
           {% endfor %}

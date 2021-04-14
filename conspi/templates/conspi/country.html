@@ -2,11 +2,11 @@
 
 {% block content %}
 	<div class="row">
-		<div class="col-xs-12 text-center"><br>
+		<div class="col-md-12 text-center"><br>
 			<h1>{{country}}</h1><br>
 			<h4>GlobCOVID true or false ANSWERS:</h4>
 		</div>
-		<div class="col-xs-10">
+		<div class="col-md-9">
 			{% for answer in answers %}
 			<a href="{% url 'question' answer.question.id %}"><h5 class="text-info">Question {{ answer.question }}: {{ answer.question.title }}</h5></a>
 			<li>Definitely True: {{ answer.definitely_true }} %</li>
@@ -16,11 +16,13 @@
 			<li>Don't Know: {{ answer.dont_know }} %</li><br>
 			{% endfor %}
 		</div>
-		<ol>
-			<h5>Choose country:</h5>
+		<div class="col-md-3">
+			<h5 class="col-xs-12">Choose country:</h5>
+			<ol>
 			{% for country in countries %}
-				<li><a href="{% url 'country' country.id %}">{{ country.name }}</a></li>
+				<li class="col-xs-4 col-md-12"><a href="{% url 'country' country.id %}">{{ country.name }}</a></li>
 			{% endfor %}
-		</ol>
+			</ol>
+		</div>
 	</div>
 {% endblock %}

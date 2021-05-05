@@ -16,7 +16,7 @@
                         <a href="{% url 'close_listing' listing.id %}" role="button" class="btn btn-outline-danger btn-sm float-right">Close Listing</a>
                     {% endif %}
                 {% else %}
-                    <p>Sign in to add to watchlist.</p>
+                    <button disabled class="btn btn-outline-success btn-sm">Sign in to add to watchlist.</button>
                 {% endif %}
             
             <div class="row text-center" id="listing_info_page">
@@ -44,7 +44,7 @@
                             <input type="submit" value="Place Bid" class="btn-primary">
                         </form>
                     {% else %}
-                        <p>Sign in to bet.</p>
+                    <button disabled class="btn-primary">>Sign in to bet.</button>
                     {% endif %}
                 </div>
             </div>
@@ -70,7 +70,7 @@
                     <input type="submit" value="Save Comment" class="btn-primary">
                 </form>
             {% else %}
-                <p>Sign in to comment.</p>
+            <button class="btn-primary" disabled>Sign in to comment.</button>
             {% endif %}
 
         </div>

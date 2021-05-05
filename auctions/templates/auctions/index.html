@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+        <h2 class="text-center">Active Listings</h2>
+
+        {% if listings %}
+            {% for item in listings %}
+                <div class="container" id="listing_short_box">
+                    <div class="row text-center">
+                        
+                        <div class="col-md-5">
+                            <img id="image" alt="Qries" src="{{ item.picture_URL }}" width=150" height="150">
+                        </div>
+                            
+                        <div class="col-md-7">
+                            <a href="{% url 'listing' item.id %}" class="nav-link">
+                                <h3>{{ item.title }} {{ item.watched }}</h3></a>
+                            <h6>{{ item.description }}</h6>
+
+                            {% if item.last_bid %}
+                                <h6><li class="list-group-item">Current Bid: <b>£{{ item.last_bid.bid }}</b></li></h6>
+                            {% else %}
+                                <h6><li class="list-group-item">Initial Bid: <b>£{{ item.start_bit }}</b></li></h6>
+                            {% endif %}
+                            
+                            {% if time_now %}
+                                <p><small>Created: {{ time_now|timeuntil:item.created_date }} 
+                                    ago ({{ item.created_date|date:"D d M Y" }})</small></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+{% endblock %}

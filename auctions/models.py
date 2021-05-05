@@ -1,12 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 class User(AbstractUser):
     pass
 
 class Listing(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='User')
     title = models.CharField(max_length=50)
     start_bit = models.IntegerField()
     description = models.TextField(max_length=200)
@@ -18,7 +19,7 @@ class Listing(models.Model):
     bids = models.ManyToManyField('Bid', related_name='bids_in_the_auction', blank=True)
     last_bid = models.ForeignKey('Bid', on_delete=models.CASCADE, related_name='last_bid_for_the_listing', blank=True, null=True)
     active = models.BooleanField(default=True)
-    winner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="new_owner", null=True, blank=True)
+    winner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="new_owner", null=True, blank=True)
 
     CATEGORY_CHOICES = [
         ('Fasion', 'Fasion'),
@@ -45,7 +46,7 @@ class Listing(models.Model):
 
 
 class Watchlist(models.Model):
-   user = models.ForeignKey(User, on_delete=models.CASCADE)
+   user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
    items = models.ManyToManyField(Listing)
 
    def __str__(self):
@@ -53,7 +54,7 @@ class Watchlist(models.Model):
 
 
 class Bid(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default='0')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default='0')
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, default='0')
     bid = models.IntegerField()
     date = models.DateTimeField(default=timezone.now)
@@ -66,7 +67,7 @@ class Bid(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default='0')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default='0')
     listing = models.ForeignKey(Listing, on_delete=models.CASCADE, default='0')
     comment = models.TextField(max_length=200)
     date = models.DateTimeField(default=timezone.now)

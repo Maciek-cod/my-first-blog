@@ -226,7 +226,7 @@ def close_listing(request, listing_id):
 def watchlist (request):
     my_list = Watchlist.objects.filter(user=request.user)
 
-    if my_list:
+    if my_list is not None:
         my_watchlist = my_list[0]
         time_now = timezone.now()
         
@@ -235,10 +235,10 @@ def watchlist (request):
             'time_now': time_now,
         }
         return render(request, "auctions/watchlist.html", context=context)
-    
-    return render(request, "auctions/watchlist.html", {
-        "error": 'Your Watchlist is empty.'
-    })
+    else:
+        return render(request, "auctions/watchlist.html", {
+            "error": 'Your Watchlist is empty.'
+        })
 
 def categories (request):
     l = []

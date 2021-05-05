@@ -14,7 +14,7 @@
                     <a href="{% url 'close_listing' listing.id %}" role="button" class="btn btn-outline-danger btn-sm float-right">Close Listing</a>
                 {% endif %}
             {% else %}
-                <button disabled class="btn btn-outline-success btn-sm">Sign in to add to watchlist</button>
+                <button disabled class="btn-success btn-sm">Sign in to add to watchlist</button>
             {% endif %}
             
             <h2 class="text-center"><small>Listing: </small>{{ listing.title }}</h2>

@@ -226,7 +226,7 @@ def close_listing(request, listing_id):
 def watchlist (request):
     my_list = Watchlist.objects.filter(user=request.user)
 
-    if my_list is not None:
+    if my_list is None:
         my_watchlist = my_list[0]
         time_now = timezone.now()
         

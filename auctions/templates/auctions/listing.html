@@ -1,5 +1,4 @@
 {% extends "auctions/layout.html" %}
-{% load static %}
 
 {% block body %}
     
@@ -7,9 +6,12 @@
         <div class="container" id="listing_page">
 
             {% if user.is_authenticated %}
-                <a href="{% url 'watchlistadd' listing.id %}" role="button" class="btn btn-outline-success btn-sm">Add to Watchlist</a>
-                <a href="{% url 'watchlistremove' listing.id %}" role="button" class="btn btn-outline-success btn-sm">Remove from Watchlist</a>
-
+                {% if show_add_to_watchlist %}
+                    <a href="{% url 'watchlistremove' listing.id %}" role="button" class="btn btn-outline-success btn-sm">Remove from Watchlist</a>
+                {% else %}
+                    <a href="{% url 'watchlistadd' listing.id %}" role="button" class="btn btn-outline-success btn-sm">Add to Watchlist</a>    
+                {% endif %}
+                
                 {% if listing.author == request.user %}
                     <a href="{% url 'close_listing' listing.id %}" role="button" class="btn btn-outline-danger btn-sm float-right">Close Listing</a>
                 {% endif %}
@@ -27,12 +29,12 @@
                 </div>
 
                 <div class="col-sm-5" id="listing_info_boxes">
-                    <li class="list-group-item">Start Bid: £{{listing.start_bit}}</li>
+                    <li class="list-group-item">Start Bid: £{{ listing.start_bit }}</li>
 
                     {% if listing.last_bid %}
-                        <li class="list-group-item">Current Bid: £{{listing.last_bid.bid}}</li>
+                        <li class="list-group-item">Current Bid: £{{ listing.last_bid.bid }}</li>
                     {% else %}
-                        <li class="list-group-item">Initial Bid: £{{listing.start_bit}}</li>
+                        <li class="list-group-item">Initial Bid: £{{ listing.start_bit }}</li>
                     {% endif %}
 
                     <li class="list-group-item">Published: {{ listing.published_date }}{% if time_now %}<br>

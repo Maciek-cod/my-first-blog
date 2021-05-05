@@ -126,13 +126,14 @@ def listing(request, listing_id):
     form = BidForm()
     comment_form = CommentForm()
     comments = Comment.objects.filter(listing=listing_id)
-
+    show_add_to_watchlist = Watchlist.objects.filter(items=listing_id, user=request.user)
     context = {
         'listing': listing,
         'time_now': time_now,
         'form': form,
         'comment_form': comment_form,
         'comments': comments,
+        'show_add_to_watchlist': show_add_to_watchlist,
     }
     return render(request, "auctions/listing.html", context=context)
 

@@ -235,8 +235,8 @@ def watchlist (request):
             'time_now': time_now,
         }
         return render(request, "auctions/watchlist.html", context=context)
-    else:
-        return render(request, "auctions/watchlist.html", {
+    
+    return render(request, "auctions/watchlist.html", {
         "error": 'Your Watchlist is empty.'
     })
 

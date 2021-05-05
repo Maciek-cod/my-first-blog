@@ -2,6 +2,10 @@
 
 {% block body %}
 
+    {% if message %}
+        {{ message }}
+    {% endif %}
+
     {% if items %}
         <h2 class="text-center">My Watchlist</h2>
             {% for item in items %}
@@ -31,8 +35,6 @@
                     </div>
                 </div>
             {% endfor %}
-    {% else %}
-        <h3 class="text-center">No Listings in your watchlist.</h3>
     {% endif %}
 
 {% endblock %}

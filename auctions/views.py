@@ -241,12 +241,19 @@ def close_listing(request, listing_id):
 def watchlist (request):
     my_list = Watchlist.objects.filter(user=request.user)
 
-    my_watchlist = my_list[0]
-    time_now = timezone.now()
+    for li in my_list:
+        if li is not None:
+            my_watchlist = my_list[0]
+            time_now = timezone.now()
+            
+            context = {
+                'items': my_watchlist.items.all(),
+                'time_now': time_now,
+                "error": 'Your Watchlist is empty.'
+            }
+            return render(request, "auctions/watchlist.html", context=context)
     
     context = {
-        'items': my_watchlist.items.all(),
-        'time_now': time_now,
         "error": 'Your Watchlist is empty.'
     }
     return render(request, "auctions/watchlist.html", context=context)

@@ -162,22 +162,24 @@ def place_bid(request, listing_id):
     if request.method == 'POST':
         auction_to_add = Listing.objects.get(id=listing_id)
         total_bid = request.POST["bid"]
-        if int(total_bid) <= auction_to_add.start_bit:
-            return HttpResponse('Your bid must be bigger then initial bid.')
-        if  auction_to_add.last_bid is None:
-            bid = Bid.objects.create(user=auction_to_add.author, listing=auction_to_add, bid=auction_to_add.start_bit)
+        try:
+            if int(total_bid) <= auction_to_add.start_bit:
+                return HttpResponse('Your bid must be bigger then initial bid.')
+            if  auction_to_add.last_bid is None:
+                bid = Bid.objects.create(user=auction_to_add.author, listing=auction_to_add, bid=auction_to_add.start_bit)
+                auction_to_add.bids.add(bid)
+                auction_to_add.last_bid = bid
+                auction_to_add.save()
+            if int(total_bid) <= auction_to_add.last_bid.bid:
+                return HttpResponse('Your bid must be bigger then current bid.')
+        
+            bid = Bid.objects.create(user=request.user, listing=auction_to_add, bid=total_bid)
             auction_to_add.bids.add(bid)
             auction_to_add.last_bid = bid
             auction_to_add.save()
-        if int(total_bid) <= auction_to_add.last_bid.bid:
-            return HttpResponse('Your bid must be bigger then current bid.')
-        
-        bid = Bid.objects.create(user=request.user, listing=auction_to_add, bid=total_bid)
-        auction_to_add.bids.add(bid)
-        auction_to_add.last_bid = bid
-        auction_to_add.save()
-        return HttpResponseRedirect(reverse("listing", kwargs={'listing_id':listing_id}))
-
+            return HttpResponseRedirect(reverse("listing", kwargs={'listing_id':listing_id}))
+        except ValueError:
+            return HttpResponse('Error. The amount you enter is invalid.')
 
 def create_comment(request, listing_id):
     listing = Listing.objects.get(id=listing_id)

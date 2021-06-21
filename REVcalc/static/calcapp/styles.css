@@ -1,0 +1,207 @@
+a{text-decoration: none !important}
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+  background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
+  /* background-color: rgb(173, 200, 250); */
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Numans', sans-serif;
+}
+
+.container{
+  align-content: center;
+}
+.navbar {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0px 0.5px 0px rgb(192, 192, 192) !important;
+}
+.index {
+  background-color: rgba(0,0,0,0.5) !important;
+  color: white !important;
+  padding: 50px;
+  margin-top: 200px; 
+}
+
+.my_transactions_title {
+  padding-top: 130px;
+}
+
+.totals {
+  width: 80%;
+  background-color: rgba(0,0,0,0.5) !important;
+  color: white !important;
+  padding: 50px;
+  margin-top: 50px; 
+  margin-left: 10%;
+  margin-bottom: 100px;
+}
+
+.card-register{
+  height: 410px;
+  margin-top: 200px;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card-login{
+  height: 310px;
+  margin-top: 200px;
+  margin-bottom: auto;
+  width: 400px;
+  background-color: rgba(0,0,0,0.5) !important;
+}
+.card-load-data{
+  margin-top: 200px;
+  background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card-header h3{
+  color: white;
+}
+
+.input-group-prepend span{
+  width: 50px;
+  background-color: #FFC312;
+  color: black;
+  border:0 !important;
+}
+
+input:focus{
+  outline: 0 0 0 0  !important;
+  box-shadow: 0 0 0 0 !important;
+}
+
+.login_btn{
+  color: black;
+  background-color: #FFC312;
+  width: 100px;
+}
+
+.add_btn{
+  color: black;
+  background-color: #FFC312;
+  width: 200px;
+  margin-left: calc(50% - 100px);
+}
+
+.add_btn:hover{
+  color: black;
+  background-color: white;
+}
+
+.login_btn:hover{
+  color: black;
+  background-color: white;
+}
+
+.index-text-yellow{
+  color: #FFC312;
+}
+
+.upload_form label{
+  display: none;
+} 
+
+.totals_table {
+  font-size: 20px;
+}
+.totals_table .table tr, .table th { 
+border-top: none;
+}
+.table-dark tr {
+cursor: pointer;
+}
+
+.active-stocks {
+  margin-bottom: 150px;
+}
+
+/* Popup container */
+.popup {
+  position: relative;
+  /* display: inline-block; */
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+
+@media screen and (max-width: 767px) {
+  .index-button-upload {
+    margin-top: 30px;
+  }
+  .index {
+    margin-top: 125px;
+  }
+  .card-myprofile {
+    margin-top: 125px;
+  }
+  .totals {
+    width: 100%;
+    margin-left: 0%;
+  }
+  .my_transactions_title {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 991px) {
+  #upload_form input{
+    padding-left: 30px;
+  }
+}

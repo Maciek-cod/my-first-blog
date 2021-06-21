@@ -1,0 +1,43 @@
+{% extends "calcapp/layout.html" %}
+
+{% block body %}
+
+    {% if user.is_authenticated %}
+        <div class="container">
+            <div class="card card-load-data">
+                <div class="card-header text-center">
+                    <h1 class="text-center text-warning">Hi {{ user|capfirst }}!</h1>
+                    <h3 class="mt-4 text-white">Upload New Data:</h3>
+                </div>
+                <form class="text-warning text-center upload_form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="popup">
+                        {{ form }}
+                        <button class="btn btn-success index-button-upload" onclick="checkProfit()" type="file">Upload file</button>
+                        <span class="popuptext" id="myPopup">Please wait... Uploading new file.</span>
+                    </div>
+                </form>
+                <div class="card-body text-center">
+                    <div class="form-group">
+                        <h3 class="text-white">Your uploaded files so far:</h3>                          
+                        {% if files %}
+                            {% for file in files %}
+                                <a href="/media/{{file.document}}" class="text-warning" target="_blank">
+                                    {{ file.document }}</a><br>
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-warning text-center pt-2">NO FILES JET</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <h4 class="text-white text-center">My Transactions:</h4>
+                    <a class="btn add_btn mb-4" href="{% url 'my_transactions' user.id %}">Report</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <h1 class="text-white text-center mt-5">You are not logged in.</h1>
+    {% endif %}
+
+{% endblock %}

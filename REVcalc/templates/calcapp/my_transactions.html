@@ -1,0 +1,165 @@
+{% extends "calcapp/layout.html" %}
+
+{% block body %}
+
+    <div class="container text-white">
+        {% if user.is_authenticated %}
+            <h1 class="my_transactions_title">My Transactions</h1>
+            <div class="table-responsive">
+                <table class="table table-striped table-dark text-right justify-content-center mb-5">
+                    <thead>
+                        <tr class="text-right text-warning ">
+                            <th class="text-center align-middle" scope="col">Settle date</th>
+                            <th class="align-middle" scope="col">Code</th>
+                            <th class="align-middle" scope="col">Type</th>
+                            <th class="align-middle" scope="col">Quantity</th>
+                            <th class="align-middle" scope="col">Price</th>
+                            <th class="text-center align-middle" scope="col">Quantity after transaction</th>
+                        </tr>
+                    </thead>
+                    {% if user_transactions %}
+                    {% for transaction in user_transactions %}
+                        <tbody>
+                            <tr class="text-right">
+                                <td class="text-center align-middle">{{ transaction.settle_date.date }}</td>
+                                <td class="align-middle">{{ transaction.name }}</td>
+                                <td class="align-middle">{{ transaction.type }}</td>
+                                <td class="align-middle">{{ transaction.quantity }}</td>
+                                <td class="align-middle">{{ transaction.price|floatformat:2 }}</td>
+                                <td class="text-center align-middle">{{ transaction.quantity_after_transaction }}</td>
+                            </tr>
+                        </tbody>
+                        {% if transaction.type == "SELL" %}
+                        <thead>
+                            <tr class="text-left">
+                                <td colspan="7">
+                                    <table class="table mb-0 text-white text-center justify-content-center">
+                                        <thead>
+                                            <td class="align-middle">Bought on</td> 
+                                            <td class="align-middle">Code</td>
+                                            <td class="align-middle">Quantity</td>
+                                            <td class="align-middle">Unit purchase price</td>
+                                            <td class="align-middle">Sold for</td>
+                                            <td class="align-middle">Profit</td>
+                                            <td class="align-middle">Stayed Quantity</td>
+                                        </thead>
+                                            {% for d in transaction.sold.all %}
+                                            <tbody>
+                                            <tr>
+                                                <td class="align-middle">{{ d.buy.settle_date.date }}</td> 
+                                                <td class="align-middle">{{ d.buy.name }}</td>
+                                                <td class="align-middle">{{ d.quantity }}</td>
+                                                <td class="align-middle">{{ d.buy.price|floatformat:2 }}</td>
+                                                <td class="align-middle">{{ transaction.price|floatformat:2 }}</td>
+                                                <td class="align-middle">{{ d.profit|floatformat:2 }}</td>
+                                                <td class="align-middle">{{ d.qty_stayed }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                            <tr class="text-warning">
+                                                <td colspan="4"></td>
+                                                <td class="align-middle" colspan="1" class="text-right">TOTAL {{ transaction.name }} PROFIT:</td>
+                                                <td class="align-middle">{{ transaction.profit|floatformat:2 }}&nbsp$</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table class="table table-striped table-dark text-right justify-content-center mb-5">
+                        <thead>
+                            <tr class="text-right text-warning ">
+                                <th class="align-middle" class="text-center" scope="col">Settle date</th>
+                                <th class="align-middle" scope="col">Code</th>
+                                <th class="align-middle" scope="col">Type</th>
+                                <th class="align-middle" scope="col">Quantity</th>
+                                <th class="align-middle" scope="col">Price</th>
+                                <th class="align-middle" class="text-center" scope="col">Quantity after transaction</th>
+                            </tr>
+                        </thead>
+                        {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+                <div class="totals text-center">
+                    <h3 class="text-center text-white">TOTALS<br>{{ positive }}</h3>
+                    <table class="table text-white totals_table">
+                        <thead class="text-warning">
+                            <tr>
+                            <th scope="col"></th>
+                            <th scope="col">USD</th>
+                            <th scope="col">PLN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td class="text-warning align-middle" scope="row">Total profit:</td>
+                            <td class="align-middle">{{ total_profit|floatformat:2 }}</td>
+                            <td class="align-middle">{{ total_profit_pln|floatformat:2 }}</td>
+                            </tr>
+                            <tr>
+                            <td class="text-warning align-middle" scope="row">Tax rate:</td>
+                            <td class="align-middle">20%</td>
+                            <td class="align-middle">19%</td>
+                            </tr>
+                            <tr>
+                            <td class="text-warning align-middle" scope="row">Tax:</td>
+                            <td class="align-middle">{{ tax|floatformat:2 }}</td>
+                            <td class="align-middle">{{ tax_pln|floatformat:2 }}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                </div>
+                <h2>Active stocks:</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-dark text-right justify-content-center active-stocks">
+                        <thead>
+                            <tr class="text-center text-warning">
+                                <th class="text-center align-middle" scope="col">Settle date</th>
+                                <th class="align-middle" scope="col">Code</th>
+                                <th class="align-middle" scope="col">Type</th>
+                                <th class="align-middle" scope="col">Quantity</th>
+                                <th class="align-middle" scope="col">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if active_transactions %}
+                                {% for transaction in active_transactions %}
+                                    {% if transaction.bought.all %}
+                                        {% for t in transaction.bought.all %}
+                                        <tr class="text-center">
+                                            <td class="align-middle">{{ transaction.settle_date.date }}</td>
+                                            <td class="align-middle">{{ t.buy.name }}</td>
+                                            <td class="align-middle">{{ t.buy.type }}</td>
+                                            <td class="align-middle">{{ t.qty_stayed }}</td>
+                                            <td class="align-middle">{{ t.buy.price|floatformat:2 }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% else %}
+                                    <tr class="text-center">
+                                        <td class="align-middle">{{ transaction.settle_date.date }}</td>
+                                        <td class="align-middle">{{ transaction.name }}</td>
+                                        <td class="align-middle">{{ transaction.type }}</td>
+                                        <td class="align-middle">{{ transaction.quantity }}</td>
+                                        <td class="align-middle">{{ transaction.price|floatformat:2 }}</td>
+                                    </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                            <tr class="text-center">
+                                <td colspan="6">Currently you have no active stocks</a></td> 
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <tr class="text-center">
+                            <td colspan="7">No transactions jet. Upload <a href="{% url 'load_data' %}">new data</a></td> 
+                        </tr>
+                    {% endif %}
+        {% else %}
+            <h2 class="m-5">Login to look up your transactions.</h2>
+        {% endif %}
+    </div>
+
+{% endblock %}
